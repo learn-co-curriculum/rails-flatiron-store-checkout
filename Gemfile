@@ -36,6 +36,7 @@ group :test, :development do
   gem "pry"
   gem "guard-rspec", require: false
   gem "thin"
+  gem 'stripe-ruby-mock'
 end
 
 group :production do
@@ -47,4 +48,7 @@ end
 gem "bootstrap-sass", "~> 3.1.1"
 gem "airbrake"
 gem "faker"
-gem "friendly_id"
+gem 'whenever', :require => false
+gem 'chronic'
+gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
+gem 'figaro'

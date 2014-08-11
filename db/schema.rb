@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140805200233) do
+ActiveRecord::Schema.define(version: 20140811160354) do
 
   create_table "carts", force: true do |t|
     t.datetime "created_at"
@@ -45,6 +45,15 @@ ActiveRecord::Schema.define(version: 20140805200233) do
     t.integer  "user_id"
     t.integer  "cart_id"
     t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "stripe_payments", force: true do |t|
+    t.string   "stripe_customer_id"
+    t.string   "stripe_email"
+    t.string   "stripe_default_card"
+    t.string   "stripe_charge_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
