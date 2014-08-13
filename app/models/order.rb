@@ -11,7 +11,8 @@ class Order < ActiveRecord::Base
 
   def self.create_from_cart(cart)
     self.create(
-      cart_id: cart.id
+      cart_id: cart.id,
+      total: cart.total
     )
   end
 

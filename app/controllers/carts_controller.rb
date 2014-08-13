@@ -1,5 +1,5 @@
 class CartsController < ApplicationController
-  before_filter :set_cart, only: [:show]
+  before_filter :set_cart, only: [:show, :checkout]
 
   def show
   end
@@ -9,6 +9,9 @@ class CartsController < ApplicationController
     @order.change_order_status
     @order.change_inventory
     session[:cart_id] = nil
+    respond_to do |format|
+      format.html { redirect_to order_path(@order), notice: 'Thanks for your order!' }
+    end
   end
 
   private

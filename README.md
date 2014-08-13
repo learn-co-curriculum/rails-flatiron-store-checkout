@@ -18,21 +18,19 @@ resources: 4
 
 Last lab, we built a post request method `checkout` that handles a bunch of our app's functionality: creating a new order from a cart, changing the order status, changing the inventory, and destroying the cart session.
 
-Now, before we checkout we're going to do a bit more. Our site needs to login/signup a user and accept payment for their order. Think of how most e-commerce sites work:
+Now, before we checkout we're going to do a bit more. Our site needs to accept payments from users. Think of how most e-commerce sites work:
 
 1. You add items to your cart
 2. You click checkout
-3. You are prompted to login or sign up
-4. You add you address, phone number, etc (or it fills it in for you)
-5. You fill out payment info
-6. You submit your order
-7. Confirmation page
+3. You fill out payment info
+4. You submit your order
+5. Confirmation page
 
 ### Using Stripe to Handle Payments
 
 Before our "checkout" was handled by our checkout method on the carts controller. Instead, we're going to hand over that functionality to Stripe, a super simple and secure way to handle credit card payment processes. Follow the steps outlined in the [Stripe documentation](https://stripe.com/docs/checkout/guides/rails) on how to set this up. Be sure to create a Stripe account to get the test keys to include in your `stripe.rb`initializer. Use figaro to hold onto those keys.
 
-TODO: move checkout functionality
+After submitting payment from Stripe, we should be redirected to the `checkout` method that handles our order functionality.
 
 ### Bonus functionality: Cron Jobs
 
