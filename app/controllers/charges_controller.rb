@@ -17,6 +17,12 @@ class ChargesController < ApplicationController
       currency: 'usd'
     )
 
+    @order = Order.create_from_cart(current_cart)
+    @order.change_order_status
+    @order.change_inventory
+    session[:cart_id] = nil
+    redirect_to order_path(@order), notice: 'Thanks for your order!'
+
     rescue Stripe::CardError => e
       flash[:error] = e.message
       redirect_to charges_path
