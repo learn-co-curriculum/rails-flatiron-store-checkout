@@ -1,5 +1,5 @@
 class StripePayment < ActiveRecord::Base
-  belongs_to :order
+  # belongs_to :order
 
   def create_customer(email, stripe_token)
     Stripe::Customer.create(
