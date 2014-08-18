@@ -1,6 +1,7 @@
 class Order < ActiveRecord::Base
   belongs_to :cart
   has_many :items, through: :cart
+  has_one :stripe_payment
 
   # like a join between cart and user
   # order instance created when checkout happens or user logs in
