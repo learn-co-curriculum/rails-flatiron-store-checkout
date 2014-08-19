@@ -1,16 +1,12 @@
 ---
-tags: full-application, associations, stripe, intermediate, WIP
+tags: full-application, stripe, intermediate, WIP
 language: ruby
 resources: 2
 ---
 
 # Flatiron Store on Rails
 
-## Second iteration
-
-1. User functionality through OmniAuth 
-2. Stripe API integration
-3. The act of checking out creates a user and their order (turning the LineItems in carts into an order that belongs to a user)
+## Second iteration: Checking out with Stripe
 
 ## Tasks
 
@@ -18,19 +14,30 @@ resources: 2
 
 Last lab, we built a post request method `checkout` that handles a bunch of our app's functionality: creating a new order from a cart, changing the order status, changing the inventory, and destroying the cart session.
 
-Now, before we checkout we're going to do a bit more. Our site needs to accept payments from users. Think of how most e-commerce sites work:
+Now, we're going to do a bit more and refactor that `checkout` functionality. Our site needs to accept payments from users.
+
+This will be the new flow of our application:
 
 1. You add items to your cart
 2. You click checkout
 3. You fill out payment info
-4. You submit your order
-5. Confirmation page
+4. You submit your payment
+5. Confirmation page 
 
 ### Using Stripe to Handle Payments
 
-Before our "checkout" was handled by our checkout method on the carts controller. Instead, we're going to hand over that functionality to Stripe, a super simple and secure way to handle credit card payment processes. Follow the steps outlined in the [Stripe documentation](https://stripe.com/docs/checkout/guides/rails) on how to set this up. Be sure to create a Stripe account to get the test keys to include in your `stripe.rb`initializer. Use figaro to hold onto those keys.
+We're going to use Stripe to handle accepting payments. We're going to integrate their API into our application, and with doing so, change the functionality of our app.
 
-After submitting payment from Stripe, we should be redirected to the `checkout` method that handles our order functionality.
+### Tasks:
+
+* Our `checkout` method is going to be done away with and instead that functionality will be handled by methods in the Order class and the orders controller.
+* The `create` action in the orders controller will be where our Strip functionality is also handled.
+* Read the documentation linked below on how Strip can be integrated into a Rails app. It's a simple example which we're going to build off of.
+* Create a StripePayment class which will handle working with the Stripe API
+* We're going to persist user input via Stripe, so create a migration as well
+* A StripePayment belongs to an Order and an Order has_one StripePayment
+* 
+
 
 ## Up Next: Third iteration
 
