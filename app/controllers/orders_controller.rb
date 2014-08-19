@@ -1,6 +1,4 @@
 class OrdersController < ApplicationController
-  before_action :process_payment, only: [:create]
-
   def show
     @order = Order.find(params[:id])
   end
@@ -17,11 +15,6 @@ class OrdersController < ApplicationController
       flash[:error] = e.message
       redirect_to charges_path
     end
-  end
-
-  private 
-  def process_payment
-
   end
   
 end

@@ -1,7 +1,7 @@
 ---
-tags: full-application, associations, omniauth, stripe, cron, intermediate
+tags: full-application, associations, stripe, intermediate, WIP
 language: ruby
-resources: 4
+resources: 2
 ---
 
 # Flatiron Store on Rails
@@ -32,23 +32,10 @@ Before our "checkout" was handled by our checkout method on the carts controller
 
 After submitting payment from Stripe, we should be redirected to the `checkout` method that handles our order functionality.
 
-### Bonus functionality: Cron Jobs
-
-If a cart is created every time a user adds an item to it, that's a lot of carts. Not every user goes through with an order, so we'll end up having a lot of cart objects clogging our database.
-
-Let's create an automated process that deletes cart objects from the database after a certain time they were created. Automated processes are usually handled by [cron jobs](http://en.wikipedia.org/wiki/Cron). The [Whenever gem](https://github.com/javan/whenever) in Ruby is an easy to use wrapper for cron jobs. We're going to write a Whenever cron job that triggers a task to clean out our database.
-
-1. Follow the Whenever readme on how to write tasks.
-2. We want to delete all instances of Cart that are older than a week. Sounds like a class method on Cart. The whenever cron job should trigger that method. Bonus: write an AREL statement that queries for all records older than a week. Hint: use the handy [Chronic gem](https://github.com/mojombo/chronic) to parse that timeframe.
-
 ## Up Next: Third iteration
 
 1. Segment.io analysis of user events / behavior
 
 ## Resources
-
-* [Whenever gem doumentation](https://github.com/javan/whenever)
-* [cron jobs](http://en.wikipedia.org/wiki/Cron)
-* [Chronic gem](https://github.com/mojombo/chronic)
 * [Setting up Stripe on Rails](https://stripe.com/docs/checkout/guides/rails)
 * [Strip Checkout documentation](https://stripe.com/docs/checkout)

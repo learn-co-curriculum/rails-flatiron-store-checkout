@@ -51,7 +51,5 @@ end
 gem "bootstrap-sass", "~> 3.1.1"
 gem "airbrake"
 gem "faker"
-gem 'whenever', :require => false
-gem 'chronic'
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 gem 'figaro'
