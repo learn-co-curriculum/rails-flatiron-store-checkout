@@ -1,4 +1,4 @@
-class Order < ActiveRecord::Base
+class Order < ActiveRecord::Base  
   belongs_to :cart
   has_many :items, through: :cart
   has_one :stripe_payment
@@ -48,9 +48,5 @@ class Order < ActiveRecord::Base
         line_item.item.save
       end
     end 
-  end
-
-  def total_to_currency
-    (total.to_f / 100)
   end
 end

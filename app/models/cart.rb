@@ -23,9 +23,4 @@ class Cart < ActiveRecord::Base
     end
     return total
   end
-
-  def total_to_currency
-    (total.to_f / 100)
-  end
-
 end
