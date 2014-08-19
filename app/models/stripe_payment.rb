@@ -17,7 +17,7 @@ class StripePayment < ActiveRecord::Base
   def create_charge(amount)
     Stripe::Charge.create(
       customer: @customer.id,
-      amount: stripe_price(amount),
+      amount: amount,
       description: @customer.id,
       currency: 'usd'
     )
@@ -28,8 +28,4 @@ class StripePayment < ActiveRecord::Base
     create_charge(amount)
   end
 
-  private
-  def stripe_price(price)
-    (price * 100).to_i
-  end
 end

@@ -12,7 +12,7 @@ class OrdersController < ApplicationController
       session[:cart_id] = nil
       redirect_to order_path(@order), notice: 'Thanks for your order!'
     else
-      flash[:error] = e.message
+      flash[:error]
       redirect_to charges_path
     end
   end

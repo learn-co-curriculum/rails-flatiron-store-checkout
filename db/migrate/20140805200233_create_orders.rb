@@ -4,7 +4,7 @@ class CreateOrders < ActiveRecord::Migration
       t.integer :user_id
       t.integer :cart_id
       t.string :status
-      t.decimal :total, :precision => 8, :scale => 2
+      t.integer :total
       t.timestamps
     end
   end

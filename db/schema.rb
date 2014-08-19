@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20140818203916) do
   create_table "items", force: true do |t|
     t.string   "title"
     t.integer  "inventory"
-    t.decimal  "price",       precision: 8, scale: 2
+    t.integer  "price"
     t.integer  "category_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 20140818203916) do
     t.integer  "user_id"
     t.integer  "cart_id"
     t.string   "status"
-    t.decimal  "total",      precision: 8, scale: 2
+    t.integer  "total"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
