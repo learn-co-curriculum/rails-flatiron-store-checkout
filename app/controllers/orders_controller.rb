@@ -9,22 +9,19 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.create_from_cart(current_cart)
-    @order.change_order_status
-    @order.change_inventory
-    session[:cart_id] = nil
-    redirect_to order_path(@order), notice: 'Thanks for your order!'
-
-    rescue Stripe::CardError => e
+    @order = Order.new_from_cart(current_cart, params[:stripeEmail], params[:stripeToken])
+    if @order.process!
+      session[:cart_id] = nil
+      redirect_to order_path(@order), notice: 'Thanks for your order!'
+    else
       flash[:error] = e.message
       redirect_to charges_path
-
+    end
   end
 
   private 
   def process_payment
-    @stripe = StripePayment.new
-    @stripe.process(params[:email], params[:stripeToken], current_cart.total)
+
   end
   
 end

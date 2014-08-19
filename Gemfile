@@ -37,6 +37,9 @@ group :test, :development do
   gem "guard-rspec", require: false
   gem "thin"
   gem 'stripe-ruby-mock'
+  gem "launchy"
+  gem "rack_session_access"
+  gem "capybara-webkit"
 end
 
 group :production do

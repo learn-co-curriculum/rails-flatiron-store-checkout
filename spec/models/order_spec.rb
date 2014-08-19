@@ -1,34 +1,88 @@
-require 'rails_helper'
 
 RSpec.describe Order, :type => :model do
-  before do 
-    @cart = Cart.first
-    @order = Order.create_from_cart(@cart)
-    @item = Item.first
-    @line_item = @cart.add_item(@item.id)
-    @line_item.save
-    @order.change_order_status
+  let(:cart) do 
+    Cart.first.tap do |cart|
+      cart.line_items.create(:item => Item.first)
+    end
   end
 
-  it 'is created from a cart' do 
-    expect(@order.id).to eq (@cart.id)
+  subject{Order.new_from_cart(cart, "stripe@email.com", "stripe_token")}
+
+  describe '.new_from_cart' do
+    it 'accepts a cart and stripe payment info' do
+      expect(subject.cart).to eq(cart)
+      expect(subject.total).to eq(cart.total)
+      expect(subject.stripe_token).to eq("stripe_token")
+      expect(subject.stripe_email).to eq("stripe@email.com")
+    end
   end
 
-  it 'belongs to a cart' do 
-    expect(@order.cart).to eq (@cart)
+  describe '#process!' do
+    context 'with successful payment' do
+      before do
+        expect(subject).to receive(:process_payment).and_return(true)
+
+        subject.process!
+      end
+
+      it 'changes the order status' do
+        expect(subject.status).to eq("submitted")
+      end
+
+      it 'changes the inventory status' do
+        subject.cart.line_items.each do |li|
+          expect(li.item.inventory).to eq(0)
+        end
+      end
+    end
+
+    context 'with an errored payment' do
+      before do
+        expect(subject).to receive(:process_payment).and_return(false)
+
+        subject.process!
+      end
+
+      it 'keeps the order status as nil' do
+        expect(subject.status).to be(nil)
+      end
+
+      it 'does not change the inventory' do
+        subject.cart.line_items.each do |li|
+          expect(li.item.inventory).to eq(1)
+        end
+      end      
+
+    end
+
   end
 
-  it 'has many items through cart' do 
-    expect(@order.items).to include(@item)
-  end
+  describe '#process_payment' do
+    context 'with a successful stripe payment' do
+      let(:payment_processor){double(StripePayment.new)}
+      before do
+        expect(payment_processor).to receive(:process).and_return(true)
+      end
 
-  it 'has a status that changes when placed' do 
-    expect(@order.status).to eq("submitted")
-  end
+      it 'returns true' do
+        expect(subject.process_payment(payment_processor)).to be(true)
+      end
+    end
+  
+    context 'with an error stripe payment' do
+      let(:payment_processor){double(StripePayment.new)}
+      before do
+        expect(payment_processor).to receive(:process).and_return(false)
+        subject.process_payment(payment_processor)
+      end
 
-  it 'changes the inventory of an item when placed' do 
-    old_inventory = @item.inventory
-    @order.change_inventory
-    expect(@order.cart.line_items.first.item.inventory).to eq(old_inventory - 1)
+      it 'adds an error on the order payment' do
+        expect(subject.errors).to include(:total)
+      end
+
+      it 'marks the order as invalid' do
+        expect(subject).to_not be_valid
+      end
+    end
   end
 end
