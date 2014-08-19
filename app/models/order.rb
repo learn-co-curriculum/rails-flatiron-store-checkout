@@ -41,6 +41,7 @@ class Order < ActiveRecord::Base
     self.update(status: "submitted") 
   end
 
+  #This should really be in the line item model
   def change_inventory
     if self.status = "submitted"
       self.cart.line_items.each do |line_item| 

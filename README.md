@@ -8,9 +8,7 @@ resources: 2
 
 ## Second iteration: Checking out with Stripe
 
-## Tasks
-
-### Tapping in to the `checkout` method
+### Refactoring `checkout` method
 
 Last lab, we built a post request method `checkout` that handles a bunch of our app's functionality: creating a new order from a cart, changing the order status, changing the inventory, and destroying the cart session.
 
@@ -21,23 +19,29 @@ This will be the new flow of our application:
 1. You add items to your cart
 2. You click checkout
 3. You fill out payment info
-4. You submit your payment
-5. Confirmation page 
+4. You submit your payment via Stripe
+5. Order confirmation page 
 
 ### Using Stripe to Handle Payments
 
 We're going to use Stripe to handle accepting payments. We're going to integrate their API into our application, and with doing so, change the functionality of our app.
 
-### Tasks:
+### Tasks
 
-* Our `checkout` method is going to be done away with and instead that functionality will be handled by methods in the Order class and the orders controller.
-* The `create` action in the orders controller will be where our Strip functionality is also handled.
-* Read the documentation linked below on how Strip can be integrated into a Rails app. It's a simple example which we're going to build off of.
+* Our `checkout` method on our carts controller is going to be done away with and instead that functionality will be handled by methods in the Order class and the orders controller.
+* The `create` action in the orders controller will be where our Stripe functionality is also handled.
+* Read the documentation linked below on how Stripe can be integrated into a Rails app. It's a simple example which we're going to build off of.
 * Create a StripePayment class which will handle working with the Stripe API
 * We're going to persist user input via Stripe, so create a migration as well
 * A StripePayment belongs to an Order and an Order has_one StripePayment
-* 
+* **The model specs and feature specs should guide your build**
 
+### Hints about App Architecture 
+
+* Much of the functionality should be in the Order model, which gets params data from Stripe from the orders controller
+* StripePayment is a separate class for sake of organization and separation of concerns; it should handle creating Stripe charges and customers, as well as storing data in the database.
+* How does the StripePayment model get data from the Order model? Something to consider:
+  * using attr_accessors to hold non-persisted but necessary data
 
 ## Up Next: Third iteration
 
