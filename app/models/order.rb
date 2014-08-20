@@ -6,9 +6,8 @@ class Order < ActiveRecord::Base
   attr_accessor :stripe_email, :stripe_token
 
   def process_payment(payment_processor = StripePayment.new)
-    stripe = payment_processor
-    if stripe.process(stripe_email, stripe_token, cart.total)
-      self.save
+    @stripe = payment_processor
+    if @stripe.process(stripe_email, stripe_token, cart.total)
       true
     else
       errors.add(:total, "invalid stripe payment") #not working
@@ -25,8 +24,10 @@ class Order < ActiveRecord::Base
     )
   end
 
-  def process!
+  def process_and_save!
     if self.process_payment
+      self.save
+      # @stripe.update(order_id: self.id)
       self.change_order_status
       self.change_inventory
     else

@@ -36,11 +36,10 @@ class StripePayment < ActiveRecord::Base
   private
   def save_data
     self.update(
-        order_id: order_id,
-        stripe_customer_id: @customer.id,
-        stripe_email: stripe_email,
-        stripe_default_card: @customer.default_card,
-        stripe_charge_id: @charge.id
-      )
+      stripe_customer_id: @customer.id,
+      stripe_email: stripe_email,
+      stripe_default_card: @customer.default_card,
+      stripe_charge_id: @charge.id
+    )
   end
 end

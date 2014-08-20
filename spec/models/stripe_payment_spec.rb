@@ -3,40 +3,47 @@ RSpec.describe StripePayment, :type => :model do
   after { StripeMock.stop }
 
   describe '#process' do 
-    xit 'raises an exception for a Stripe failure' do 
-    end
-
-    xit 'fails if not associated with an order' do 
-    end
-
-    context 'successful transaction' do 
-      let(:cart) do 
+    let(:cart) do 
         Cart.first.tap do |cart|
           cart.line_items.create(:item => Item.first)
         end
       end
-      let(:order){Order.new}
-      let(:stripe_payment){StripePayment.new}
+    let(:order){Order.new}
+    let(:payment){StripePayment.new}
 
-      before do 
-        stripe_payment.process("test@test.com", "token", cart.total)
+    context 'failed transaction' do
+      it 'fails if not associated with an order' do
+        payment.order_id = nil
+        expect { payment.process("test@test.com", "token", cart.total) }.to raise_error
       end
 
-      it 'belongs to an order' do 
-        expect(stripe_payment.order_id).to eq(order.id)
+      it 'raises an exception for a Stripe failure' do 
+        StripeMock.prepare_card_error(:card_declined)
+        expect { payment.process("test@test.com", "token", cart.total) }.to raise_error(Stripe::CardError)
+      end
+    end
+
+    context 'successful transaction' do   
+      before do 
+        payment.process("test@test.com", "token", cart.total)
+      end
+
+      it 'belongs to an order' do
+        expect(payment.order_id).to_not be(nil)
+        expect(payment.order_id).to eq(order.id)
       end
 
       it 'records the customer information' do 
-        expect(stripe_payment.stripe_customer_id).to_not eq(nil)
-        expect(stripe_payment.stripe_default_card).to_not eq(nil)
+        expect(payment.stripe_customer_id).to_not eq(nil)
+        expect(payment.stripe_default_card).to_not eq(nil)
       end
 
       it 'records the charge information' do 
-        expect(stripe_payment.stripe_charge_id).to_not eq(nil)
+        expect(payment.stripe_charge_id).to_not eq(nil)
       end
 
       it 'saves the data' do 
-        expect(stripe_payment).to be_persisted
+        expect(payment).to be_persisted
       end
     end
   end

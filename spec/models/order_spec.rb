@@ -16,12 +16,12 @@ RSpec.describe Order, :type => :model do
     end
   end
 
-  describe '#process!' do
+  describe '#process_and_save!' do
     context 'with successful payment' do
       before do
         expect(subject).to receive(:process_payment).and_return(true)
 
-        subject.process!
+        subject.process_and_save!
       end
 
       it 'changes the order status' do
@@ -33,13 +33,17 @@ RSpec.describe Order, :type => :model do
           expect(li.item.inventory).to eq(0)
         end
       end
+
+      it 'saves the order object' do
+        expect(subject.id).to_not be(nil)
+      end
     end
 
     context 'with an errored payment' do
       before do
         expect(subject).to receive(:process_payment).and_return(false)
 
-        subject.process!
+        subject.process_and_save!
       end
 
       it 'keeps the order status as nil' do
@@ -50,7 +54,11 @@ RSpec.describe Order, :type => :model do
         subject.cart.line_items.each do |li|
           expect(li.item.inventory).to eq(1)
         end
-      end      
+      end   
+
+      it 'does not save the order object' do 
+        expect(subject.id).to be(nil)
+      end   
     end
   end
 
