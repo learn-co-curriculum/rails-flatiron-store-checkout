@@ -1,5 +1,5 @@
 ---
-tags: full-application, stripe, intermediate, WIP
+tags: full-application, stripe, oo, intermediate, WIP
 language: ruby
 resources: 2
 ---
@@ -31,10 +31,11 @@ We're going to use Stripe to handle accepting payments. We're going to integrate
 * Our `checkout` method on our carts controller is going to be done away with and instead that functionality will be handled by methods in the Order class and the orders controller.
 * The `create` action in the orders controller will be where our Stripe functionality is also handled.
 * Read the documentation linked below on how Stripe can be integrated into a Rails app. It's a simple example which we're going to build off of.
-* Create a StripePayment class which will handle working with the Stripe API
-* We're going to persist user input via Stripe, so create a migration as well. We want to save the order_id, stripe_customer_id, stripe_email, stripe_default_card, and stripe_charge_id
+* Create a StripePayment class which will handle working with the Stripe API.
 * A StripePayment belongs to an Order and an Order has_one StripePayment
-* **The model specs and feature specs should guide your build**
+* We're going to persist user input via Stripe, so create a migration as well. We want to save the order_id, stripe_customer_id, stripe_email, stripe_default_card, and stripe_charge_id
+* **The model specs should guide your build**
+* Instead of having a "Checkout" link on the carts show page, have a link to paying with stripe. **Pass the features tests**
 
 ### Hints about App Architecture 
 
@@ -42,6 +43,7 @@ We're going to use Stripe to handle accepting payments. We're going to integrate
 * StripePayment is a separate class for sake of organization and separation of concerns; it should handle creating Stripe charges and customers, as well as storing data in the database.
 * How does the StripePayment model get data from the Order model? Something to consider:
   * using attr_accessors to hold non-persisted but necessary data
+  * method arguments
 
 ## Up Next: Third iteration
 

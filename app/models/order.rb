@@ -6,7 +6,7 @@ class Order < ActiveRecord::Base
   attr_accessor :stripe_email, :stripe_token
 
   def process_payment(payment_processor = StripePayment.new)
-    self.stripe_payment = payment_processor
+    self.stripe_payment = payment_processor #is this the best place?
     if self.stripe_payment.process(stripe_email, stripe_token, cart.total)
       true
     else
