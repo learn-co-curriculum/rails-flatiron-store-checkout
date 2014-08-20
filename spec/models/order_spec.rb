@@ -1,4 +1,3 @@
-
 RSpec.describe Order, :type => :model do
   let(:cart) do 
     Cart.first.tap do |cart|
@@ -52,9 +51,7 @@ RSpec.describe Order, :type => :model do
           expect(li.item.inventory).to eq(1)
         end
       end      
-
     end
-
   end
 
   describe '#process_payment' do

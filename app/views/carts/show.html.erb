@@ -12,4 +12,11 @@
 
 <p>Order total: <strong><%= number_to_currency(to_currency(current_cart.total)) %></strong> </p>
 
-<%= link_to 'Checkout', new_order_path %>
+<%= form_tag orders_path do %>
+  <script 
+  src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+  data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+  data-description="Order total: <%= number_to_currency(current_cart.total) %>"
+  data-amount="<%= @amount %>">
+  </script>
+<% end %>

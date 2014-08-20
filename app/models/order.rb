@@ -9,9 +9,9 @@ class Order < ActiveRecord::Base
     @stripe = payment_processor
     if @stripe.process(stripe_email, stripe_token, cart.total)
       @stripe.save_data(self.stripe_email, self.stripe_token, self.id)
-      true
+      true #why is this test failing?
     else
-      errors.add(:payment, "invalid stripe payment") #not working
+      errors.add(:total, "invalid stripe payment") #not working
       false
       # introspect on the error'd stripe payment
       # and make sure the instance of order
