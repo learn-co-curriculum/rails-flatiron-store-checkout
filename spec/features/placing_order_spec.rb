@@ -1,4 +1,4 @@
-describe 'placing order spec', :type => :feature do
+describe 'placing an order', :type => :feature do
   context 'a stripe payment', :js => true do
     before do 
       visit "/"

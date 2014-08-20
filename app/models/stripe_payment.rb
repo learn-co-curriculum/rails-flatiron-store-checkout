@@ -33,7 +33,7 @@ class StripePayment < ActiveRecord::Base
         order_id: order_id,
         stripe_customer_id: @customer.id,
         stripe_email: stripe_email,
-        stripe_default_card: stripe_token,
+        stripe_default_card: @customer.default_card,
         stripe_charge_id: @charge.id
       )
   end

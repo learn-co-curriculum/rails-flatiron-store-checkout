@@ -8,6 +8,7 @@ class Order < ActiveRecord::Base
   def process_payment(payment_processor = StripePayment.new)
     @stripe = payment_processor
     if @stripe.process(stripe_email, stripe_token, cart.total)
+      self.save #save order if stripe processing successful
       @stripe.save_data(self.stripe_email, self.stripe_token, self.id)
       true #why is this test failing?
     else
@@ -26,7 +27,6 @@ class Order < ActiveRecord::Base
       stripe_email: stripe_email,
       stripe_token: stripe_token
     )
-    #where should it be saved?
   end
 
   def process!

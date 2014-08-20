@@ -2,18 +2,38 @@ RSpec.describe StripePayment, :type => :model do
   before { StripeMock.start }
   after { StripeMock.stop }
 
-  context 'successful order processes payment' do
+  describe '#process' do 
+    xit 'raises an exception for a Stripe failure' do 
+    end
+
+    xit 'fails if not associated with an order' do 
+    end
+
+    context 'successful transaction' do 
+      #mock out order
+      #mock out stripe payment
+
+      before do 
+        stripe_payment.process
+      end
+
+      xit 'records the customer information' do 
+      end
+
+      xit 'records the charge information' do 
+      end
+    end
   end
 
-  context 'failure to process payment' do 
-    xit 'raises an exception for Stripe failure' do 
-      StripeMock.prepare_card_error(:card_declined)
+  describe '#save_data' do 
+    #mock out order
+    #mock out stripe payment
 
-      expect { Stripe::Charge.create }.to raise_error {|e|
-      expect(e).to be_a Stripe::CardError
-      expect(e.http_status).to eq(402)
-      expect(e.code).to eq('card_declined')
-      } 
+    before do 
+      stripe_payment.save_data
+    end
+    
+    xit 'saves the data' do 
     end
   end
 end
