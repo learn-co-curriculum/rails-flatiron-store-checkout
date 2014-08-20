@@ -56,9 +56,9 @@ RSpec.describe Order, :type => :model do
         end
       end   
 
-      it 'does not save the order object' do 
+      it 'does not save the order object' do
         expect(subject.id).to be(nil)
-      end   
+      end  
     end
   end
 
@@ -73,7 +73,7 @@ RSpec.describe Order, :type => :model do
         expect(subject.process_payment(payment_processor)).to be(true)
       end
 
-      it 'has one stripe payment' do 
+      it 'has one stripe payment associated with it' do 
         subject.process_payment(payment_processor)
         expect(subject.stripe_payment).to eq(payment_processor)
       end
