@@ -1,5 +1,4 @@
 describe 'placing order spec', :type => :feature do
-
   context 'a stripe payment', :js => true do
     before do 
       visit "/"
@@ -10,14 +9,13 @@ describe 'placing order spec', :type => :feature do
     end
 
     it 'loads the stripe modal' do
-      visit "carts/#{@cart.id}"
-      click_link "Checkout"
-      click_button "pay_with_stripe"
+      visit "/carts/#{@cart.id}"
+      click_button "Pay with Card"
       Capybara.within_frame 'stripe_checkout_app' do
         page.execute_script '$("#card_number").val("4242424242424242")'
         page.execute_script '$("#cc-exp").val("01/20")'
         fill_in 'cc-csc', :with => '217'
-        click_button 'Enroll'
+        click_button 'Pay'
       end
     end
   end
