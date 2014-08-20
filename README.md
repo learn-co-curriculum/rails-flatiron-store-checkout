@@ -32,7 +32,7 @@ We're going to use Stripe to handle accepting payments. We're going to integrate
 * The `create` action in the orders controller will be where our Stripe functionality is also handled.
 * Read the documentation linked below on how Stripe can be integrated into a Rails app. It's a simple example which we're going to build off of.
 * Create a StripePayment class which will handle working with the Stripe API
-* We're going to persist user input via Stripe, so create a migration as well
+* We're going to persist user input via Stripe, so create a migration as well. We want to save the order_id, stripe_customer_id, stripe_email, stripe_default_card, and stripe_charge_id
 * A StripePayment belongs to an Order and an Order has_one StripePayment
 * **The model specs and feature specs should guide your build**
 
