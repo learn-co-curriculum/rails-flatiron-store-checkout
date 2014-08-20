@@ -4,8 +4,8 @@ Rails.application.routes.draw do
 
   resources :items, only: [:show, :index]
   resources :categories, only: [:show, :index]
-  resources :carts
+  resources :carts, only: [:show]
   resources :line_items, only: [:create]
-  resources :orders, only: [:show, :new, :create]
+  resources :orders, only: [:show, :create]
   
 end
