@@ -8,8 +8,8 @@ class Order < ActiveRecord::Base
   def process_payment(payment_processor = StripePayment.new)
     @stripe = payment_processor
     if @stripe.process(stripe_email, stripe_token, cart.total)
+      @stripe.save_data(self.stripe_email, self.stripe_token, self.id)
       true
-      # save the stripe_charge_id in the order model
     else
       errors.add(:payment, "invalid stripe payment") #not working
       false
@@ -26,6 +26,7 @@ class Order < ActiveRecord::Base
       stripe_email: stripe_email,
       stripe_token: stripe_token
     )
+    #where should it be saved?
   end
 
   def process!
@@ -41,7 +42,7 @@ class Order < ActiveRecord::Base
     self.update(status: "submitted") 
   end
 
-  #This should really be in the line item model
+  #This should really be in the item model
   def change_inventory
     if self.status = "submitted"
       self.cart.line_items.each do |line_item| 

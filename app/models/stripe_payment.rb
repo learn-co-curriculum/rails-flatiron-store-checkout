@@ -1,3 +1,9 @@
+# t.integer :order_id
+# t.string :stripe_customer_id
+# t.string :stripe_email
+# t.string :stripe_default_card
+# t.string :stripe_charge_id
+
 class StripePayment < ActiveRecord::Base
   belongs_to :order
 
@@ -6,12 +12,6 @@ class StripePayment < ActiveRecord::Base
       :email => email,
       :card  => stripe_token
     )
-  end
-
-  def store_customer_information
-  end
-
-  def store_charge_information
   end
 
   def create_charge(amount)
@@ -25,7 +25,16 @@ class StripePayment < ActiveRecord::Base
 
   def process(email, stripe_token, amount)
     @customer ||= create_customer(email, stripe_token)
-    create_charge(amount)
+    @charge ||= create_charge(amount)
   end
 
+  def save_data(stripe_email, stripe_token, order_id)
+    self.update(
+        order_id: order_id,
+        stripe_customer_id: @customer.id,
+        stripe_email: stripe_email,
+        stripe_default_card: stripe_token,
+        stripe_charge_id: @charge.id
+      )
+  end
 end
