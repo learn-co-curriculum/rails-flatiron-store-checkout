@@ -23,12 +23,18 @@ class StripePayment < ActiveRecord::Base
     )
   end
 
-  def process(email, stripe_token, amount)
-    @customer ||= create_customer(email, stripe_token)
+  def process(stripe_email, stripe_token, amount)
+    @customer ||= create_customer(stripe_email, stripe_token)
     @charge ||= create_charge(amount)
+    if @customer && @charge
+      save_data
+    else
+      false
+    end
   end
 
-  def save_data(stripe_email, stripe_token, order_id)
+  private
+  def save_data
     self.update(
         order_id: order_id,
         stripe_customer_id: @customer.id,

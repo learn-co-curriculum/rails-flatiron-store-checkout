@@ -10,30 +10,34 @@ RSpec.describe StripePayment, :type => :model do
     end
 
     context 'successful transaction' do 
-      #mock out order
-      #mock out stripe payment
+      let(:cart) do 
+        Cart.first.tap do |cart|
+          cart.line_items.create(:item => Item.first)
+        end
+      end
+      let(:order){Order.new}
+      let(:stripe_payment){StripePayment.new}
 
       before do 
-        stripe_payment.process
+        stripe_payment.process("test@test.com", "token", cart.total)
       end
 
-      xit 'records the customer information' do 
+      it 'belongs to an order' do 
+        expect(stripe_payment.order_id).to eq(order.id)
       end
 
-      xit 'records the charge information' do 
+      it 'records the customer information' do 
+        expect(stripe_payment.stripe_customer_id).to_not eq(nil)
+        expect(stripe_payment.stripe_default_card).to_not eq(nil)
       end
-    end
-  end
 
-  describe '#save_data' do 
-    #mock out order
-    #mock out stripe payment
+      it 'records the charge information' do 
+        expect(stripe_payment.stripe_charge_id).to_not eq(nil)
+      end
 
-    before do 
-      stripe_payment.save_data
-    end
-    
-    xit 'saves the data' do 
+      it 'saves the data' do 
+        expect(stripe_payment).to be_persisted
+      end
     end
   end
 end

@@ -6,17 +6,13 @@ class Order < ActiveRecord::Base
   attr_accessor :stripe_email, :stripe_token
 
   def process_payment(payment_processor = StripePayment.new)
-    @stripe = payment_processor
-    if @stripe.process(stripe_email, stripe_token, cart.total)
-      self.save #save order if stripe processing successful
-      @stripe.save_data(self.stripe_email, self.stripe_token, self.id)
-      true #why is this test failing?
+    stripe = payment_processor
+    if stripe.process(stripe_email, stripe_token, cart.total)
+      self.save
+      true
     else
       errors.add(:total, "invalid stripe payment") #not working
       false
-      # introspect on the error'd stripe payment
-      # and make sure the instance of order
-      # has the errors
     end
   end
 
