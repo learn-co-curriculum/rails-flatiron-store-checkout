@@ -12,11 +12,6 @@ RSpec.describe StripePayment, :type => :model do
     let(:payment){StripePayment.new}
 
     context 'failed transaction' do
-      it 'fails if not associated with an order' do
-        payment.order_id = nil
-        expect { payment.process("test@test.com", "token", cart.total) }.to raise_error
-      end
-
       it 'raises an exception for a Stripe failure' do 
         StripeMock.prepare_card_error(:card_declined)
         expect { payment.process("test@test.com", "token", cart.total) }.to raise_error(Stripe::CardError)
