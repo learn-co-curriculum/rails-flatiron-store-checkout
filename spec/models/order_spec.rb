@@ -64,7 +64,7 @@ RSpec.describe Order, :type => :model do
 
   describe '#process_payment' do
     context 'with a successful stripe payment' do
-      let(:payment_processor){double(StripePayment.new)}
+      let(:payment_processor){stub_model(StripePayment)}
       before do
         expect(payment_processor).to receive(:process).and_return(true)
       end
@@ -72,10 +72,15 @@ RSpec.describe Order, :type => :model do
       it 'returns true' do
         expect(subject.process_payment(payment_processor)).to be(true)
       end
+
+      it 'has one stripe payment' do 
+        subject.process_payment(payment_processor)
+        expect(subject.stripe_payment).to eq(payment_processor)
+      end
     end
   
     context 'with an error stripe payment' do
-      let(:payment_processor){double(StripePayment.new)}
+      let(:payment_processor){stub_model(StripePayment)}
       before do
         expect(payment_processor).to receive(:process).and_return(false)
         subject.process_payment(payment_processor)

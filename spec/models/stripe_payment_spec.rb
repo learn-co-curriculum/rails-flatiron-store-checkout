@@ -28,11 +28,6 @@ RSpec.describe StripePayment, :type => :model do
         payment.process("test@test.com", "token", cart.total)
       end
 
-      it 'belongs to an order' do
-        expect(payment.order_id).to_not be(nil)
-        expect(payment.order_id).to eq(order.id)
-      end
-
       it 'records the customer information' do 
         expect(payment.stripe_customer_id).to_not eq(nil)
         expect(payment.stripe_default_card).to_not eq(nil)

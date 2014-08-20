@@ -40,6 +40,7 @@ group :test, :development do
   gem "launchy"
   gem "rack_session_access"
   gem "capybara-webkit"
+  gem 'rspec-activemodel-mocks'
 end
 
 group :production do
