@@ -14,10 +14,10 @@
             <div class="navbar-inner">
                 <div class="container">
                   <button type="button" class="btn btn-default">
-                    <span class="glyphicon glyphicon-arrow-left"></span><%= link_to "Store Home", store_path %>
+                    <span class="glyphicon glyphicon-arrow-left"></span><%= link_to " Store Home", store_path %>
                   </button> 
                   <div class="btn-group btn-group-default">
-                  <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-th"><%= link_to "Categories", categories_path %></button>
+                  <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-th"><%= link_to " Categories", categories_path %></button>
                   <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"><span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu">
@@ -28,7 +28,7 @@
                   </div>
                   <% if current_cart %>
                     <button type="button" class="btn btn-default">
-                      <span class="glyphicon glyphicon-shopping-cart"></span><%= link_to "Cart", cart_path(current_cart) %>
+                      <span class="glyphicon glyphicon-shopping-cart"></span><%= link_to " Cart", cart_path(current_cart) %>
                     </button>
                   <% end %>
                 </div>

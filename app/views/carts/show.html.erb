@@ -1,64 +1,63 @@
 <div class="container">
-    <% if notice %>
-      <div class="alert alert-success" role="alert"><%= notice %></div>
-    <% end %>
-    <div class="row">
-        <div class="col-sm-12 col-md-10 col-md-offset-1">
-          <h1>Your Cart</h1>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Quantity</th>
-                        <th class="text-center">Price</th>
-                        <th class="text-center">Total</th>
-                        <th> </th>
-                    </tr>
-                </thead>
-          <% current_cart.line_items.each do |line_item| %>
-                <tbody>
-                    <tr>
-                        <td class="col-sm-8 col-md-6">
-                          <h4 class="media-heading"><%= link_to line_item.item.title, item_path(line_item.item) %></h4>
-                        </td>
-                        <td class="col-sm-1 col-md-1 text-center"><%= line_item.quantity %></td>
-                        <td class="col-sm-1 col-md-1 text-center"><%= number_to_currency(to_currency(line_item.item.price)) %></td>
-                        <td class="col-sm-1 col-md-1 text-center"><%= number_to_currency(to_currency(line_item.quantity * line_item.item.price)) %></td>
-                        <td class="col-sm-1 col-md-1">
-                        <button type="button" class="btn btn-danger">
-                            <span class="glyphicon glyphicon-remove"></span> Remove
-                        </button></td>
-                    </tr>
-                    <% end %>
-                    <tr>
-                        <td>   </td>
-                        <td>   </td>
-                        <td>   </td>
-                        <td><h3>Total</h3></td>
-                        <td class="text-right"><h3><strong><strong><%= number_to_currency(to_currency(current_cart.total)) %></strong></h3></td>
-                    </tr>
-                    <tr>
-                        <td>   </td>
-                        <td>   </td>
-                        <td>   </td>
-                        <td>
-                        <button type="button" class="btn btn-default">
-                            <span class="glyphicon glyphicon-arrow-left"></span><%= link_to "Continue Shopping", store_path %>
-                        </button></td>
-                        <td>
-                            <%= form_tag orders_path do %>
-                                <script 
-                                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                                data-description="Order total: <%= number_to_currency(to_currency(current_cart.total)) %>"
-                                data-amount="<%= @amount %>">
-                                </script>
-                              <% end %>
-                            
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+  <% if notice %>
+    <div class="alert alert-success" role="alert"><%= notice %></div>
+  <% end %>
+  <div class="row">
+    <div class="col-sm-12 col-md-10 col-md-offset-1">
+      <h1>Your Cart</h1>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th class="text-center">Price</th>
+              <th class="text-center">Total</th>
+            </tr>
+          </thead>
+      <% current_cart.line_items.each do |line_item| %>
+        <tbody>
+          <tr>
+            <td class="col-sm-8 col-md-6">
+              <h4 class="media-heading"><%= link_to line_item.item.title, item_path(line_item.item) %></h4>
+            </td>
+            <td class="col-sm-1 col-md-1 text-center"><%= line_item.quantity %></td>
+            <td class="col-sm-1 col-md-1 text-center"><%= number_to_currency(to_currency(line_item.item.price)) %></td>
+            <td class="col-sm-1 col-md-1 text-center"><%= number_to_currency(to_currency(line_item.quantity * line_item.item.price)) %></td>
+            <td class="col-sm-1 col-md-1">
+            <button type="button" class="btn btn-danger">
+              <span class="glyphicon glyphicon-remove"></span> <%= link_to 'Remove', line_item, method: :delete, :remote => true, :class => 'delete_li' %> 
+            </button></td>
+          </tr>
+      <% end %>
+            <tr>
+                <td>   </td>
+                <td>   </td>
+                <td>   </td>
+                <td><h3>Total</h3></td>
+                <td class="text-right"><h3><strong><strong><%= number_to_currency(to_currency(current_cart.total)) %></strong></h3></td>
+            </tr>
+            <tr>
+                <td>   </td>
+                <td>   </td>
+                <td>   </td>
+                <td>
+                <button type="button" class="btn btn-default">
+                    <span class="glyphicon glyphicon-arrow-left"></span><%= link_to " Continue Shopping", store_path %>
+                </button></td>
+                <td>
+                    <%= form_tag orders_path do %>
+                        <script 
+                        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                        data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                        data-description="Order total: <%= number_to_currency(to_currency(current_cart.total)) %>"
+                        data-amount="<%= @amount %>">
+                        </script>
+                      <% end %>
+                    
+                </td>
+            </tr>
+        </tbody>
+      </table>
     </div>
+  </div>
 </div>

@@ -37,8 +37,8 @@ We're going to use Stripe to handle accepting payments. We're going to integrate
   * We're going to persist user input via Stripe, so create a migration as well. We want to save the order_id, stripe_customer_id, stripe_email, stripe_default_card, and stripe_charge_id
   * **The model specs should guide your build**
   * Instead of having a "Checkout" link on the carts show page, have a link to paying with stripe. **Pass the features tests**
-  
-2. Better Cart UI
+
+2. Better Cart UX
   * A user should be able to delete a line_item from the cart
   * A user should be able to change the quantity of a line_item from the cart
   * A user should be able to do both of these tasks via AJAX
