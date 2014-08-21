@@ -13,4 +13,8 @@ class LineItemsController < ApplicationController
       end
     end
   end
+
+  def destroy
+
+  end
 end

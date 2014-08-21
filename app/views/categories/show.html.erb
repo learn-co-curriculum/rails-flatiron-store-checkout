@@ -1,8 +1,9 @@
-<h1><%= @category.title %></h1>
-
-<ul>
-<% @category.items.each do |item| %>
-    <li><%= link_to item.title, item_path(item) %> | <%= button_to 'Add to Cart', line_items_path(item_id: item) %>
-    </li>
-<% end %>
-</ul>
+<div class="container">
+  <h1><%= @category.title %></h1>
+  <% @category.items.each do |item| %>
+    <ul>
+      <li><%= link_to item.title, item_path(item) %> | <strong><%= number_to_currency(to_currency(item.price)) %></strong> <%= button_to 'Add to Cart', line_items_path(item_id: item), class: "btn btn-primary" %>
+      </li>
+    </ul>
+  <% end %>
+</div>

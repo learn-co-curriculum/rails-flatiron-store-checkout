@@ -1,4 +1,4 @@
-describe 'Feature Test: Cart Session', :type => :feature do
+describe 'cart session', :type => :feature do
   before do
     visit "/"
     first('.button_to').click_on("Add to Cart")
