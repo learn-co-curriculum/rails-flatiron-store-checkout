@@ -28,14 +28,21 @@ We're going to use Stripe to handle accepting payments. We're going to integrate
 
 ### Tasks
 
-* Our `checkout` method on our carts controller is going to be done away with and instead that functionality will be handled by methods in the Order class and the orders controller.
-* The `create` action in the orders controller will be where our Stripe functionality is also handled.
-* Read the documentation linked below on how Stripe can be integrated into a Rails app. It's a simple example which we're going to build off of.
-* Create a StripePayment class which will handle working with the Stripe API.
-* A StripePayment belongs to an Order and an Order has_one StripePayment
-* We're going to persist user input via Stripe, so create a migration as well. We want to save the order_id, stripe_customer_id, stripe_email, stripe_default_card, and stripe_charge_id
-* **The model specs should guide your build**
-* Instead of having a "Checkout" link on the carts show page, have a link to paying with stripe. **Pass the features tests**
+1. Order and StripePayment functionality
+  * Our `checkout` method on our carts controller is going to be done away with and instead that functionality will be handled by methods in the Order class and the orders controller.
+  * The `create` action in the orders controller will be where our Stripe functionality is also handled.
+  * Read the documentation linked below on how Stripe can be integrated into a Rails app. It's a simple example which we're going to build off of.
+  * Create a StripePayment class which will handle working with the Stripe API.
+  * A StripePayment belongs to an Order and an Order has_one StripePayment
+  * We're going to persist user input via Stripe, so create a migration as well. We want to save the order_id, stripe_customer_id, stripe_email, stripe_default_card, and stripe_charge_id
+  * **The model specs should guide your build**
+  * Instead of having a "Checkout" link on the carts show page, have a link to paying with stripe. **Pass the features tests**
+  
+2. Better Cart UI
+  * A user should be able to delete a line_item from the cart
+  * A user should be able to change the quantity of a line_item from the cart
+  * A user should be able to do both of these tasks via AJAX
+  * **Pass the features tests**
 
 ### Hints about App Architecture 
 
