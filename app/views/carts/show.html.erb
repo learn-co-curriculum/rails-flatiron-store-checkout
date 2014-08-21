@@ -23,38 +23,41 @@
             <td class="col-sm-1 col-md-1 text-center"><%= line_item.quantity %></td>
             <td class="col-sm-1 col-md-1 text-center"><%= number_to_currency(to_currency(line_item.item.price)) %></td>
             <td class="col-sm-1 col-md-1 text-center"><%= number_to_currency(to_currency(line_item.quantity * line_item.item.price)) %></td>
-            <td class="col-sm-1 col-md-1">
-            <button type="button" class="btn btn-danger">
-              <span class="glyphicon glyphicon-remove"></span> <%= link_to 'Remove', line_item, method: :delete, :remote => true, :class => 'delete_li' %> 
-            </button></td>
+            <td>
+            <%= form_for(:line_item, url: line_item_path(line_item), html: {method: :delete}, remote: true) do |f| %>
+              <%= f.hidden_field :id, value: line_item.id %>
+              <%= button_tag(type: 'submit', class: "btn btn-danger delete_li") do %>
+                  <span class="glyphicon glyphicon-remove"></span> Remove
+              <% end %>
+            </td>
+            <% end %>
           </tr>
       <% end %>
             <tr>
-                <td>   </td>
-                <td>   </td>
-                <td>   </td>
-                <td><h3>Total</h3></td>
-                <td class="text-right"><h3><strong><strong><%= number_to_currency(to_currency(current_cart.total)) %></strong></h3></td>
+              <td>   </td>
+              <td>   </td>
+              <td>   </td>
+              <td><h3>Total</h3></td>
+              <td class="text-right"><h3><strong><strong><%= number_to_currency(to_currency(current_cart.total)) %></strong></h3></td>
             </tr>
             <tr>
-                <td>   </td>
-                <td>   </td>
-                <td>   </td>
-                <td>
-                <button type="button" class="btn btn-default">
-                    <span class="glyphicon glyphicon-arrow-left"></span><%= link_to " Continue Shopping", store_path %>
-                </button></td>
-                <td>
-                    <%= form_tag orders_path do %>
-                        <script 
-                        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                        data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                        data-description="Order total: <%= number_to_currency(to_currency(current_cart.total)) %>"
-                        data-amount="<%= @amount %>">
-                        </script>
-                      <% end %>
-                    
-                </td>
+              <td>   </td>
+              <td>   </td>
+              <td>   </td>
+              <td>
+              <button type="button" class="btn btn-default">
+                <span class="glyphicon glyphicon-arrow-left"></span><%= link_to " Continue Shopping", store_path %>
+              </button></td>
+              <td>
+                <%= form_tag orders_path do %>
+                  <script 
+                  src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                  data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                  data-description="Order total: <%= number_to_currency(to_currency(current_cart.total)) %>"
+                  data-amount="<%= current_cart.total %>">
+                  </script>
+                <% end %> 
+              </td>
             </tr>
         </tbody>
       </table>

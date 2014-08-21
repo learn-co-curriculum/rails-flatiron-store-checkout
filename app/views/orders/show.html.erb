@@ -1,7 +1,9 @@
-<% if notice %>
-  <p><%= notice %></p> 
-<% end %>
+<div class="container">
+  <% if notice %>
+      <div class="alert alert-success" role="alert"><%= notice %></div>
+    <% end %>
 
-<h1>Thank you!</h1>
-<h2>Order status: <%= @order.status %></h2>
-<h3>You paid: <%= number_to_currency(to_currency(@order.total)) %></h3>
+  <h1>Thank you!</h1>
+  <h2>Order status: <%= @order.status %></h2>
+  <h3>You paid: <strong><%= number_to_currency(to_currency(@order.total)) %></strong></h3>
+</div>
