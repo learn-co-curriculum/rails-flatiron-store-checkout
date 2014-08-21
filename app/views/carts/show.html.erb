@@ -20,11 +20,13 @@
             <td class="col-sm-8 col-md-6">
               <h4 class="media-heading"><%= link_to line_item.item.title, item_path(line_item.item) %></h4>
             </td>
-            <td class="col-sm-1 col-md-1 text-center"><%= line_item.quantity %></td>
+            <td class="col-sm-1 col-md-1" style="text-align: center">
+            <input type="email" class="form-control" id="exampleInputEmail1" value="<%= line_item.quantity %>">
+            </td>
             <td class="col-sm-1 col-md-1 text-center"><%= number_to_currency(to_currency(line_item.item.price)) %></td>
             <td class="col-sm-1 col-md-1 text-center"><%= number_to_currency(to_currency(line_item.quantity * line_item.item.price)) %></td>
             <td>
-            <%= form_for(:line_item, url: line_item_path(line_item), html: {method: :delete}, remote: true) do |f| %>
+            <%= form_for(:line_item, url: line_item_path, html: {method: :delete}) do |f| %>
               <%= f.hidden_field :id, value: line_item.id %>
               <%= button_tag(type: 'submit', class: "btn btn-danger delete_li") do %>
                   <span class="glyphicon glyphicon-remove"></span> Remove

@@ -15,10 +15,11 @@ class LineItemsController < ApplicationController
   end
 
   def destroy
-    @line_item = LineItem.find(params[:id])
+    @line_item = LineItem.find(params[:line_item][:id])
     @line_item.destroy
     respond_to do |format|
-      format.js { render :layout => false }
+      format.js { render "testing" }
+      format.html
     end
   end
 end

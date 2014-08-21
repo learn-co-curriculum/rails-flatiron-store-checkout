@@ -1,6 +1,6 @@
 ---
-tags: full-application, stripe, oo, intermediate, WIP
-language: ruby
+tags: full-application, stripe, oo, intermediate, ajax, WIP
+language: ruby, javascript
 resources: 2
 ---
 
@@ -41,7 +41,7 @@ We're going to use Stripe to handle accepting payments. We're going to integrate
 2. Better Cart UX
   * A user should be able to delete a line_item from the cart
   * A user should be able to change the quantity of a line_item from the cart
-  * A user should be able to do both of these tasks via AJAX
+  * A user should be able to do both of these tasks via AJAX, handled by the line_items controller methods destroy and update
   * **Pass the features tests**
 
 ### Hints about App Architecture 
