@@ -26,13 +26,10 @@
             <td class="col-sm-1 col-md-1 text-center"><%= number_to_currency(to_currency(line_item.item.price)) %></td>
             <td class="col-sm-1 col-md-1 text-center"><%= number_to_currency(to_currency(line_item.quantity * line_item.item.price)) %></td>
             <td>
-            <%= form_for(:line_item, url: line_item_path, html: {method: :delete}) do |f| %>
-              <%= f.hidden_field :id, value: line_item.id %>
-              <%= button_tag(type: 'submit', class: "btn btn-danger delete_li") do %>
+              <%= button_tag(type: 'submit', class: "btn btn-danger delete_li", "data-id" => line_item.id) do %>
                   <span class="glyphicon glyphicon-remove"></span> Remove
               <% end %>
             </td>
-            <% end %>
           </tr>
       <% end %>
             <tr>
@@ -40,7 +37,7 @@
               <td>   </td>
               <td>   </td>
               <td><h3>Total</h3></td>
-              <td class="text-right"><h3><strong><strong><%= number_to_currency(to_currency(current_cart.total)) %></strong></h3></td>
+              <td class="text-right"><h3 id="total"><strong><strong><%= number_to_currency(to_currency(current_cart.total)) %></strong></h3></td>
             </tr>
             <tr>
               <td>   </td>

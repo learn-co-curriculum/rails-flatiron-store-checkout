@@ -15,11 +15,14 @@ class LineItemsController < ApplicationController
   end
 
   def destroy
-    @line_item = LineItem.find(params[:line_item][:id])
+    @line_item = LineItem.find(params[:id])
     @line_item.destroy
+    price = @line_item.item.price
     respond_to do |format|
-      format.js { render "testing" }
       format.html
+      format.json do
+        render json: { status: :ok, price: price }
+      end
     end
   end
 end
