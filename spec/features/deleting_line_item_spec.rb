@@ -1,19 +1,15 @@
 describe 'deleting a line item from cart', :type => :feature, :js => true do
-
-  let(:cart) do 
-    Cart.first.tap do |cart|
-      cart.line_items.create(:item => Item.first)
-    end
-  end
-
   context 'successful delete' do 
     before do 
-      visit "/carts/#{cart.id}"
-      click_button("button[data-id=#{cart.line_items.first.id}]")
+      visit "/"
+      first('.button_to').click_on("Add to Cart")
+      @cart = Cart.find(page.get_rack_session_key('cart_id'))
+      visit "/carts/#{@cart.id}"
+      click_button("Remove").first
     end
 
     it 'deletes a line_item asynchronically' do 
-      expect(page).to_not have_content("cart.line_items.first.id")
+      expect(page).to_not have_content(@cart.line_items.first.item.title)
     end
 
     context 'changing total' do 
@@ -22,8 +18,8 @@ describe 'deleting a line item from cart', :type => :feature, :js => true do
         expect(@total).to eq('$0.00')
       end
 
-      it 'change should be reflected on the backend' do 
-        expect(@total).to eq(cart.total)
+      it 'change should be reflected in the backend' do 
+        expect(@total).to eq(@cart.total)
       end
     end
   end
