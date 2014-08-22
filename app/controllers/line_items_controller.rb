@@ -14,10 +14,26 @@ class LineItemsController < ApplicationController
     end
   end
 
+  def update
+    @line_item = LineItem.find(params[:id])
+    @line_item.update(quantity: params[:value].to_i)
+
+    response_hash = {}
+    response_hash[:total] = current_cart.total
+    response_hash[:new_quantity] = @line_item.quantity
+    response_hash[:stripe_api] = Rails.configuration.stripe[:publishable_key]
+
+    respond_to do |format|
+      format.json do 
+        render json: response_hash
+      end
+    end
+  end
+
   def destroy
     @line_item = LineItem.find(params[:id])
     @line_item.destroy
-    
+
     response_hash = {}
     response_hash[:total] = current_cart.total
     response_hash[:stripe_api] = Rails.configuration.stripe[:publishable_key]

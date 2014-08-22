@@ -21,7 +21,7 @@
               <h4 class="media-heading"><%= link_to line_item.item.title, item_path(line_item.item) %></h4>
             </td>
             <td class="col-sm-1 col-md-1" style="text-align: center">
-            <input type="email" class="form-control" id="exampleInputEmail1" value="<%= line_item.quantity %>">
+            <input type="email" class="form-control" id="exampleInputEmail1" value="<%= line_item.quantity %>" data-id="<%= line_item.id %>">
             </td>
             <td class="col-sm-1 col-md-1 text-center"><%= number_to_currency(to_currency(line_item.item.price)) %></td>
             <td class="col-sm-1 col-md-1 text-center"><%= number_to_currency(to_currency(line_item.quantity * line_item.item.price)) %></td>

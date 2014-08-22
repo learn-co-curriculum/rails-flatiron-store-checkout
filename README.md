@@ -39,8 +39,10 @@ We're going to use Stripe to handle accepting payments. We're going to integrate
   * Instead of having a "Checkout" link on the carts show page, have a link to paying with stripe. **Pass the features tests**
 
 2. Better Cart UX
-  * A user should be able to delete a line_item from the cart, via AJAX. THis would be handled by the line_items controller methods destroy.
-  * The cart total on the page should be updated when a line_item is deleted as well
+  * A user should be able to delete a line_item from the cart, via AJAX. This would be handled by the line_items controller methods `destroy`.
+  * The cart total on the page should be updated asynchronously when a line_item is deleted as well
+
+    * Be sure that the stripe iframe knows about the new total, of you will overcharge your user!
   * **Pass the features tests**
 
 ### Hints about App Architecture 
