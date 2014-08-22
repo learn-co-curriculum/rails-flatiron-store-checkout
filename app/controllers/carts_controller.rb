@@ -1,5 +1,5 @@
 class CartsController < ApplicationController
-  before_filter :set_cart, only: [:show, :checkout]
+  before_filter :set_cart, only: [:show]
 
   def show
   end

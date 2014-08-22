@@ -7,5 +7,7 @@ Rails.application.routes.draw do
   resources :carts, only: [:show]
   resources :line_items, only: [:create, :destroy]
   resources :orders, only: [:show, :create]
+
+  post "update_cart_total" => "carts#update_cart_total"
   
 end

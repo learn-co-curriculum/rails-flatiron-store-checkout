@@ -47,15 +47,8 @@
               <button type="button" class="btn btn-default">
                 <span class="glyphicon glyphicon-arrow-left"></span><%= link_to " Continue Shopping", store_path %>
               </button></td>
-              <td>
-                <%= form_tag orders_path do %>
-                  <script 
-                  src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                  data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                  data-description="Order total: <%= number_to_currency(to_currency(current_cart.total)) %>"
-                  data-amount="<%= current_cart.total %>">
-                  </script>
-                <% end %> 
+              <td id="stripe-button">
+                <%= render 'carts/stripe_modal' %>
               </td>
             </tr>
         </tbody>

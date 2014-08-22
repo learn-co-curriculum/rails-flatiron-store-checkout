@@ -17,11 +17,13 @@ class LineItemsController < ApplicationController
   def destroy
     @line_item = LineItem.find(params[:id])
     @line_item.destroy
-    price = @line_item.item.price
+    response_hash = {}
+    response_hash[:total] = current_cart.total
+    response_hash[:stripe_api] = Rails.configuration.stripe[:publishable_key]
+    
     respond_to do |format|
-      format.html
       format.json do
-        render json: { status: :ok, price: price }
+        render json: response_hash
       end
     end
   end
