@@ -6,7 +6,7 @@ $(function(){
       url: '/line_items/' + id,
       dataType: "json",
       success: function(data){
-        
+
         $('.delete_li[data-id=' + id + ']').closest('tr').fadeOut();
 
         var new_total = data.total / 100;

@@ -8,18 +8,25 @@ describe 'deleting a line item from cart', :type => :feature, :js => true do
       click_button("Remove").first
     end
 
-    it 'deletes a line_item asynchronically' do 
-      expect(page).to_not have_content(@cart.line_items.first.item.title)
+    it 'deletes a line_item asychronously' do 
+      expect(@cart.line_items).to be_empty
     end
 
     context 'changing total' do 
-      it 'changes the cart total asynchronically' do 
-        @total = page.find_css('#total').value
-        expect(@total).to eq('$0.00')
+      before do 
+        @total = page.find(:css, '#total').text
+      end
+
+      it 'changes the cart total asychronously on the page' do 
+        expect(@total).to eq('$0')
       end
 
       it 'change should be reflected in the backend' do 
-        expect(@total).to eq(@cart.total)
+        expect(@total.gsub('$', '').to_i).to eq(@cart.total / 100)
+      end
+
+      it 'stripe iframe knows about the new total' do 
+        expect(page.find(: xpath, 'string(//*[@id="stripe-button"]/form/script/@data-amount)').text).to eq(@cart.total)
       end
     end
   end
