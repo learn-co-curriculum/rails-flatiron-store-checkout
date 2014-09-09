@@ -13,8 +13,7 @@ $(function(){
 
         $('#total').text('$' + new_total);
 
-        $('#stripe-button').html(
-        '<script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="' + data.stripe_api + '" data-description="Order total: ' + '$' + new_total + '" data-amount="' + data.total + '"></script>')
+        $('#stripe-button').html('<script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="' + data.stripe_api + '" data-description="Order total: ' + '$' + new_total + '" data-amount="' + data.total + '"></script>');
       }
     });
     e.preventDefault();

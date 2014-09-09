@@ -16,7 +16,7 @@ class LineItemsController < ApplicationController
 
   def update
     @line_item = LineItem.find(params[:id])
-    @line_item.update(quantity: params[:value].to_i)
+    @line_item.update(quantity: params[:new_quantity].to_i)
 
     response_hash = {}
     response_hash[:total] = current_cart.total
