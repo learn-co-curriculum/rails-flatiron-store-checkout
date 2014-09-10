@@ -15,7 +15,7 @@ $(function(){
           var new_sub_total = new_sub_total_num * new_quantity
           var new_total = data.total / 100;
 
-          $('#total').text('$' + new_total);
+          $('.total').text('$' + new_total);
           $('#sub-total').text('$' + new_sub_total);
 
           $('#stripe-button').html('<script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="' + data.stripe_api + '" data-description="Order total: ' + '$' + new_total + '" data-amount="' + data.total + '"></script>')

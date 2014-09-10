@@ -41,7 +41,7 @@ We're going to use Stripe to handle accepting payments. We're going to integrate
 2. Better Cart UX
   * A user should be able to delete a line_item from the cart, via AJAX. This would be handled by the line_items controller methods `destroy`
   * The cart total on the page should be updated asynchronously when a line_item is deleted as well
-    * Be sure that the stripe iframe knows about the new total, of you will overcharge your user!
+    * Be sure that the stripe iframe knows about the new total, or you will overcharge your user!
   * If a cart becomes empty through removing or updating a line_item, a user should not see a "Pay with Card" button. We want to check the total on the page in order to determine whether or not we hide the button. One fancy way to do this is with the `.observe()` function currently available in Chrome 36. Check out this [blog post](http://kiafathi.azurewebsites.net/observations-about-object-observe/) on it.
   * **Pass the features tests**
 
