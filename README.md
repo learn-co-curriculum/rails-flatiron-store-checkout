@@ -1,5 +1,5 @@
 ---
-tags: full-application, stripe, oo, intermediate, ajax, WIP
+tags: full-application, stripe, oo, advanced, ajax, WIP
 language: ruby, javascript
 resources: 2
 ---
@@ -42,10 +42,10 @@ We're going to use Stripe to handle accepting payments. We're going to integrate
   * A user should be able to delete a line_item from the cart, via AJAX. This would be handled by the line_items controller methods `destroy`
   * The cart total on the page should be updated asynchronously when a line_item is deleted as well
     * Be sure that the stripe iframe knows about the new total, or you will overcharge your user!
-  * If a cart becomes empty through removing or updating a line_item, a user should not see a "Pay with Card" button. We want to check the total on the page in order to determine whether or not we hide the button. One fancy way to do this is with the `.observe()` function currently available in Chrome 36. Check out this [blog post](http://kiafathi.azurewebsites.net/observations-about-object-observe/) on it.
   * **Pass the features tests**
 
   * **BONUS**
+    * If a cart becomes empty through removing or updating a line_item, a user should not see a "Pay with Card" button. We want to check the total on the page in order to determine whether or not we hide the button. One fancy way to do this is with the `Object.observe()` function currently available in Chrome 36. Check out this [blog post](http://kiafathi.azurewebsites.net/observations-about-object-observe/) on it.
     * A user should be able to update the line_item quantity, via AJAX. This should be handled by the line_items controller methods `update`
     * The line_item total should be updated asynchronously as well
 
@@ -59,7 +59,7 @@ We're going to use Stripe to handle accepting payments. We're going to integrate
 
 ## Up Next: Third iteration
 
-1. Segment.io analysis of user events / behavior
+1. Using Segment.io to analyze and track user behavior
 
 ## Resources
 * [Setting up Stripe on Rails](https://stripe.com/docs/checkout/guides/rails)
