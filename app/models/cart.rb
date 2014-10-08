@@ -19,4 +19,5 @@ class Cart < ActiveRecord::Base
     end
     return total
   end
+
 end
