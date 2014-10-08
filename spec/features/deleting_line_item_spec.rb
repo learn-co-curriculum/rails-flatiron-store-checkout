@@ -25,11 +25,5 @@ describe 'deleting a line item from cart', :type => :feature, :js => true do
         expect(@total.gsub('$', '').to_i).to eq(@cart.total / 100)
       end
     end
-
-    context 'empty shopping cart' do 
-      xit 'hides the Pay with Card button when total is 0' do 
-        expect(find_button('Pay with Card').visible?).to eq(false)
-      end
-    end
   end
 end

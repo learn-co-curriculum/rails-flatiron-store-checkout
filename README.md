@@ -1,12 +1,12 @@
 ---
-tags: full-application, stripe, oo, advanced, ajax, WIP
+tags: rails, full-application, stripe, oo, advanced, ajax
 language: ruby, javascript
 resources: 2
 ---
 
 # Flatiron Store on Rails
 
-## Second iteration: Checking out with Stripe
+## Second iteration: Checking out with Stripe and Cart UX
 
 ### Refactoring `checkout` method
 
@@ -48,6 +48,7 @@ We're going to use Stripe to handle accepting payments. We're going to integrate
     * If a cart becomes empty through removing or updating a line_item, a user should not see a "Pay with Card" button. We want to check the total on the page in order to determine whether or not we hide the button. One fancy way to do this is with the `Object.observe()` function currently available in Chrome 36. Check out this [blog post](http://kiafathi.azurewebsites.net/observations-about-object-observe/) on it.
     * A user should be able to update the line_item quantity, via AJAX. This should be handled by the line_items controller methods `update`
     * The line_item total should be updated asynchronously as well
+    * **The tests are pending for these bonuses**. Write the tests!
 
 ### Hints about App Architecture 
 

@@ -89,10 +89,6 @@ RSpec.describe Order, :type => :model do
       it 'adds an error on the order payment' do
         expect(subject.errors).to include(:total)
       end
-
-      it 'marks the order as invalid' do
-        expect(subject).to_not be_valid
-      end
     end
   end
 end
