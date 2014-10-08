@@ -4,11 +4,10 @@ Rails.application.routes.draw do
 
   resources :items, only: [:show, :index]
   resources :categories, only: [:show, :index]
-  resources :users, only: [:show]
-  resources :carts
-  resources :line_items, only: [:create]
-  resources :orders, only: [:show]
+  resources :carts, only: [:show]
+  resources :line_items, only: [:create, :update, :destroy]
+  resources :orders, only: [:show, :create]
 
-  post 'carts/:id/checkout', to: 'carts#checkout', as: 'checkout'
-
+  post "update_cart_total" => "carts#update_cart_total"
+  
 end
