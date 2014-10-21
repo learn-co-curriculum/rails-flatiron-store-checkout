@@ -26,6 +26,22 @@ This will be the new flow of our application:
 
 We're going to use Stripe to handle accepting payments. We're going to integrate their API into our application, and with doing so, change the functionality of our app.
 
+#### Stripe Setup
+
+Go to [Stripe](https://stripe.com/), make an account and generate a test publishable key and secret key. Using Figaro, generate an `application.yml` file and store those keys.
+
+
+Next, create an initializer (let's call it `stripe.rb`):
+
+```ruby
+Rails.configuration.stripe = {
+  :publishable_key => ENV['PUBLISHABLE_KEY'],
+  :secret_key      => ENV['SECRET_KEY']
+}
+
+Stripe.api_key = Rails.configuration.stripe[:secret_key]
+```
+
 ### Tasks
 
 1. Order and StripePayment functionality
