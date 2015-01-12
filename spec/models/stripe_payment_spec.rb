@@ -10,17 +10,18 @@ RSpec.describe StripePayment, :type => :model do
       end
     let(:order){Order.new}
     let(:payment){StripePayment.new}
+    let(:card_token){StripeMock.generate_card_token(last4: "9191", exp_year: 1984)}
 
     context 'failed transaction' do
       it 'raises an exception for a Stripe failure' do 
         StripeMock.prepare_card_error(:card_declined)
-        expect { payment.process("test@test.com", "token", cart.total) }.to raise_error(Stripe::CardError)
+        expect { payment.process("test@test.com", card_token, cart.total) }.to raise_error(Stripe::CardError)
       end
     end
 
     context 'successful transaction' do   
       before do 
-        payment.process("test@test.com", "token", cart.total)
+        payment.process("test@test.com", card_token, cart.total)
       end
 
       it 'records the customer information' do 
