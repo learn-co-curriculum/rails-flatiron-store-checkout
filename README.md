@@ -74,10 +74,6 @@ Stripe.api_key = Rails.configuration.stripe[:secret_key]
   * using attr_accessors to hold non-persisted but necessary data
   * method arguments
 
-## Up Next: Third iteration
-
-1. Using Segment.io to analyze and track user behavior
-
 ## Resources
 * [Setting up Stripe on Rails](https://stripe.com/docs/checkout/guides/rails)
 * [Strip Checkout documentation](https://stripe.com/docs/checkout)
