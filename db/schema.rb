@@ -13,18 +13,18 @@
 
 ActiveRecord::Schema.define(version: 20140818203916) do
 
-  create_table "carts", force: true do |t|
+  create_table "carts", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "categories", force: true do |t|
+  create_table "categories", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "items", force: true do |t|
+  create_table "items", force: :cascade do |t|
     t.string   "title"
     t.integer  "inventory"
     t.integer  "price"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20140818203916) do
     t.datetime "updated_at"
   end
 
-  create_table "line_items", force: true do |t|
+  create_table "line_items", force: :cascade do |t|
     t.integer  "cart_id"
     t.integer  "item_id"
     t.integer  "quantity",   default: 1
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20140818203916) do
     t.datetime "updated_at"
   end
 
-  create_table "orders", force: true do |t|
+  create_table "orders", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "cart_id"
     t.string   "status"
