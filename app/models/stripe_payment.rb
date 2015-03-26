@@ -38,7 +38,7 @@ class StripePayment < ActiveRecord::Base
     self.update(
       stripe_customer_id: @customer.id,
       stripe_email: stripe_email,
-      stripe_default_card: @customer.default_card,
+      stripe_default_card: @customer.card,
       stripe_charge_id: @charge.id
     )
   end
