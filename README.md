@@ -1,9 +1,3 @@
----
-tags: rails, full-application, stripe, oo, advanced, ajax
-language: ruby, javascript
-resources: 2
----
-
 # Flatiron Store on Rails
 
 ## Second iteration: Checking out with Stripe and Cart UX
