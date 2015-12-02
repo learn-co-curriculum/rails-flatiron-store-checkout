@@ -72,3 +72,5 @@ Stripe.api_key = Rails.configuration.stripe[:secret_key]
 ## Resources
 * [Setting up Stripe on Rails](https://stripe.com/docs/checkout/guides/rails)
 * [Stripe Checkout documentation](https://stripe.com/docs/checkout)
+
+<a href='https://learn.co/lessons/rails-flatiron-store-checkout' data-visibility='hidden'>View this lesson on Learn.co</a>
