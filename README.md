@@ -73,4 +73,4 @@ Stripe.api_key = Rails.configuration.stripe[:secret_key]
 * [Setting up Stripe on Rails](https://stripe.com/docs/checkout/guides/rails)
 * [Stripe Checkout documentation](https://stripe.com/docs/checkout)
 
-<a href='https://learn.co/lessons/rails-flatiron-store-checkout' data-visibility='hidden'>View this lesson on Learn.co</a>
+<p data-visibility='hidden'>View <a href='https://learn.co/lessons/rails-flatiron-store-checkout' title='Flatiron Store on Rails'>Flatiron Store on Rails</a> on Learn.co and start learning to code for free.</p>
